@@ -1,0 +1,9 @@
+﻿services:
+  messenger.webapi:
+    image: messenger.webapi
+    ports:
+      - "5000:8080"
+    build:
+      context: .
+      dockerfile: src/Messenger.WebApi/Dockerfile
+
