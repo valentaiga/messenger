@@ -6,4 +6,5 @@
     build:
       context: .
       dockerfile: src/Messenger.WebApi/Dockerfile
-
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
