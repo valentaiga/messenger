@@ -16,4 +16,8 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Messenger.WebSockets\Messenger.WebSockets.csproj" />
+  </ItemGroup>
+
 </Project>
