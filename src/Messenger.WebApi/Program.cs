@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Messenger.WebSockets;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -7,7 +8,23 @@ builder.Services.ConfigureHttpJsonOptions(options =>
     options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
 });
 
+// builder.Services.AddControllers();
+builder.Services.AddWebSocketHandler();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5000")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
+app.UseCors("AllowFrontend");
 
 var sampleTodos = new Todo[]
 {
