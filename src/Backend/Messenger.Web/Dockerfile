@@ -12,7 +12,7 @@ RUN apt update && \
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/Backend/Messenger.Web/Messenger.Web.csproj", "Messenger.Web/"]
-COPY ["src/Backend/Messenger.Web.WebSockets/Messenger.Web.WebSockets.csproj", "Messenger.Web.WebSockets/"]
+COPY ["src/Backend/Messenger.Web.Api.WebSockets/Messenger.Web.Api.WebSockets.csproj", "Messenger.Web.Api.WebSockets/"]
 COPY ["src/Backend/Messenger.Common/Messenger.Common.csproj", "Messenger.Common/"]
 RUN dotnet restore "Messenger.Web/Messenger.Web.csproj" -r linux-x64
 

@@ -3,7 +3,7 @@ using System.Net.WebSockets;
 using System.Text;
 using Microsoft.Extensions.Logging;
 
-namespace Messenger.Web.WebSockets;
+namespace Messenger.Web.Api.WebSockets;
 
 public class WebSocketsHandler
 {

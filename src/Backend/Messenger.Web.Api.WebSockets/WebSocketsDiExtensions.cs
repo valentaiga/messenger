@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Messenger.Web.WebSockets;
+namespace Messenger.Web.Api.WebSockets;
 
 public static class WebSocketsDiExtensions
 {

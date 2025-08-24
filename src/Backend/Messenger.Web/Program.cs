@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 using Messenger.Web;
-using Messenger.Web.WebSockets;
+using Messenger.Web.Api.WebSockets;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
