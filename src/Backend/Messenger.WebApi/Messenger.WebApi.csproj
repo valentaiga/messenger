@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
+    <OutputType>Exe</OutputType>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
     <PublishAot>true</PublishAot>
@@ -17,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Messenger.WebSockets\Messenger.WebSockets.csproj" />
+    <ProjectReference Include="..\Messenger.WebApi.WebSockets\Messenger.WebApi.WebSockets.csproj" />
   </ItemGroup>
 
 </Project>

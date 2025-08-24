@@ -1,5 +1,5 @@
 using System.Text.Json.Serialization;
-using Messenger.WebSockets;
+using Messenger.WebApi.WebSockets;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -43,6 +43,7 @@ todosApi.MapGet("/{id}", (int id) =>
         : Results.NotFound());
 
 await app.RunAsync();
+
 
 public record Todo(int Id, string? Title, DateOnly? DueBy = null, bool IsComplete = false);
 

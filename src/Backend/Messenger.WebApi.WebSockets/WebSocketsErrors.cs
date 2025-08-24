@@ -1,6 +1,6 @@
 ﻿using Messenger.Common.Exceptions;
 
-namespace Messenger.WebSockets;
+namespace Messenger.WebApi.WebSockets;
 
 public sealed class WebSocketsException : MessengerException
 {
