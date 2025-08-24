@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Messenger.WebApi.WebSockets;
+namespace Messenger.Web.WebSockets;
 
 public class WebSocketMiddleware : IMiddleware
 {

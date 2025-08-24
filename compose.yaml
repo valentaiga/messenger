@@ -1,11 +1,11 @@
 ﻿services:
   messenger.webapi:
-    container_name: messenger.webapi
-    image: messenger.webapi
+    container_name: messenger.web
+    image: messenger.web
     ports:
       - "5000:8080"
     build:
       context: .
-      dockerfile: src/Backend/Messenger.WebApi/Dockerfile
+      dockerfile: src/Backend/Messenger.Web/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: Development

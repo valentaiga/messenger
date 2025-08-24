@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
-using Messenger.WebApi.WebSockets;
+using Messenger.Web;
+using Messenger.Web.WebSockets;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -24,6 +25,7 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+app.UseWebSocketHandler();
 app.UseCors("AllowFrontend");
 
 var sampleTodos = new Todo[]
@@ -44,10 +46,12 @@ todosApi.MapGet("/{id}", (int id) =>
 
 await app.RunAsync();
 
-
-public record Todo(int Id, string? Title, DateOnly? DueBy = null, bool IsComplete = false);
-
-[JsonSerializable(typeof(Todo[]))]
-internal partial class AppJsonSerializerContext : JsonSerializerContext
+namespace Messenger.Web
 {
+    public record Todo(int Id, string? Title, DateOnly? DueBy = null, bool IsComplete = false);
+
+    [JsonSerializable(typeof(Todo[]))]
+    internal partial class AppJsonSerializerContext : JsonSerializerContext
+    {
+    }
 }

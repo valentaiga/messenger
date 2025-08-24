@@ -3,6 +3,6 @@
     <File Path="compose.yaml" />
   </Folder>
   <Project Path="src\Backend\Messenger.Common\Messenger.Common.csproj" Type="Classic C#" />
-  <Project Path="src\Backend\Messenger.WebApi.WebSockets\Messenger.WebApi.WebSockets.csproj" Type="Classic C#" />
-  <Project Path="src\Backend\Messenger.WebApi\Messenger.WebApi.csproj" Type="Classic C#" />
+  <Project Path="src\Backend\Messenger.Web.WebSockets\Messenger.Web.WebSockets.csproj" Type="Classic C#" />
+  <Project Path="src\Backend\Messenger.Web\Messenger.Web.csproj" Type="Classic C#" />
 </Solution>
