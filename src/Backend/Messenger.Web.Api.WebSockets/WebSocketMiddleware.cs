@@ -4,12 +4,10 @@ namespace Messenger.Web.Api.WebSockets;
 
 public class WebSocketMiddleware : IMiddleware
 {
-    private readonly RequestDelegate _next;
     private readonly WebSocketsHandler _webSocketHandler;
 
-    public WebSocketMiddleware(RequestDelegate next, WebSocketsHandler webSocketHandler)
+    public WebSocketMiddleware(WebSocketsHandler webSocketHandler)
     {
-        _next = next;
         _webSocketHandler = webSocketHandler;
     }
 
@@ -23,7 +21,7 @@ public class WebSocketMiddleware : IMiddleware
         }
         else
         {
-            await _next(context);
+            await next(context);
         }
     }
 }

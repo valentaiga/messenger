@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Messenger.Common\Messenger.Common.csproj"/>
+    <ProjectReference Include="..\Messenger.Web.Api.Models\Messenger.Web.Api.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>

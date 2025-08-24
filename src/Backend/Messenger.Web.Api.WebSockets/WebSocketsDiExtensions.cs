@@ -12,6 +12,7 @@ public static class WebSocketsDiExtensions
 
     public static IServiceCollection AddWebSocketHandler(this IServiceCollection services)
     {
+        services.AddSingleton<WebSocketMiddleware>();
         services.AddSingleton<WebSocketsHandler>();
         return services;
     }
