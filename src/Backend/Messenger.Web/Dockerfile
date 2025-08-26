@@ -12,17 +12,19 @@ RUN apt update && \
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/Backend/Messenger.Web/Messenger.Web.csproj", "Messenger.Web/"]
+COPY ["src/Backend/Messenger.Web.Api/Messenger.Web.Api.csproj", "Messenger.Web.Api/"]
+COPY ["src/Backend/Messenger.Web.Api.Models/Messenger.Web.Api.Models.csproj", "Messenger.Web.Api.Models/"]
 COPY ["src/Backend/Messenger.Web.Api.WebSockets/Messenger.Web.Api.WebSockets.csproj", "Messenger.Web.Api.WebSockets/"]
 COPY ["src/Backend/Messenger.Common/Messenger.Common.csproj", "Messenger.Common/"]
-RUN dotnet restore "Messenger.Web/Messenger.Web.csproj" -r linux-x64
+RUN dotnet restore "Messenger.Web/Messenger.Web.csproj"
 
 WORKDIR /src/Messenger.Web
 COPY . .
-RUN dotnet build "./Messenger.Web.csproj" -c $BUILD_CONFIGURATION -r linux-x64 -o /app/build --no-restore
+RUN dotnet build "./Messenger.Web.csproj" -c $BUILD_CONFIGURATION -o /app/build --no-restore
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Messenger.Web.csproj" -r linux-x64 -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false --no-restore
+RUN dotnet publish "./Messenger.Web.csproj" -c $BUILD_CONFIGURATION /p:UseAppHost=false --self-contained true -o /app/publish --no-restore
 
 FROM base AS final
 WORKDIR /app

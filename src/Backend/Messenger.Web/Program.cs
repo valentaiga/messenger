@@ -1,35 +1,42 @@
-using Messenger.Web;
 using Messenger.Web.Api;
 using Messenger.Web.Api.WebSockets;
 
-var builder = WebApplication.CreateSlimBuilder(args);
+namespace Messenger.Web;
 
-builder.Services.ConfigureHttpJsonOptions(options =>
+public class Program
 {
-    options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
-});
-
-// builder.Services.AddControllers();
-builder.Services.AddWebSocketHandler();
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowFrontend", policy =>
+    public static void Main(string[] args)
     {
-        policy
-            .WithOrigins("http://localhost:5000")
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials();
-    });
-});
+        var builder = WebApplication.CreateSlimBuilder(args);
 
-var app = builder.Build();
+        builder.Services.ConfigureHttpJsonOptions(options =>
+        {
+            options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
+        });
 
-app.UseWebSocketHandler();
+        // builder.Services.AddControllers();
+        builder.Services.AddWebSocketHandler();
 
-app.UseCors("AllowFrontend");
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowFrontend", policy =>
+            {
+                policy
+                    .WithOrigins("http://localhost:5000")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+            });
+        });
 
-app.AddIdentityEndpoints();
+        var app = builder.Build();
 
-await app.RunAsync();
+        app.UseWebSocketHandler();
+
+        app.UseCors("AllowFrontend");
+
+        app.AddIdentityEndpoints();
+
+        app.Run();
+    }
+}

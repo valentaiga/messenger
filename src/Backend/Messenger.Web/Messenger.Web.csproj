@@ -3,22 +3,21 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <OutputType>Exe</OutputType>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
     <PublishAot>true</PublishAot>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <StripSymbols>true</StripSymbols>
+    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="..\..\.dockerignore">
-      <Link>.dockerignore</Link>
-    </Content>
+    <ProjectReference Include="..\Messenger.Web.Api\Messenger.Web.Api.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Messenger.Web.Api\Messenger.Web.Api.csproj" />
+    <Content Include="..\..\..\.dockerignore">
+      <Link>.dockerignore</Link>
+    </Content>
   </ItemGroup>
 
 </Project>
