@@ -62,7 +62,7 @@ public class WebSocketsHandler
     private async Task HandleMessageAsync(long socketId, byte[] buffer, int messageLength)
     {
         var message = buffer.AsMemory(0, messageLength);
-        // todo vm: handle it
+        // todo: handle it
     }
 
     public async Task SendMessageAsync(long socketId, string message)

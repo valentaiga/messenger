@@ -1,3 +1,4 @@
+using Messenger.Identity.App.Grpc.Client;
 using Messenger.Web.Api;
 using Messenger.Web.Api.WebSockets;
 
@@ -7,6 +8,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
+        // todo: add exception middleware
         var builder = WebApplication.CreateSlimBuilder(args);
 
         builder.Services.ConfigureHttpJsonOptions(options =>
@@ -16,6 +18,7 @@ public class Program
 
         // builder.Services.AddControllers();
         builder.Services.AddWebSocketHandler();
+        builder.Services.AddIdentityGrpcClient("http://127.0.0.1:5010");
 
         builder.Services.AddCors(options =>
         {

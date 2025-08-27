@@ -1,18 +1,19 @@
 ﻿using System.Security.Cryptography;
+using Messenger.Identity.App.Grpc.Contracts;
+using Messenger.Identity.App.Grpc.Contracts.Models;
 using Messenger.Web.Api.Models;
 using Messenger.Web.Api.Models.Identity;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Messenger.Web.Api;
 
 public static class IdentityController
 {
-    public static IEndpointRouteBuilder AddIdentityEndpoints(this IEndpointRouteBuilder endpoints)
+    public static IEndpointRouteBuilder AddIdentityEndpoints(this IEndpointRouteBuilder routeBuilder)
     {
-        var group = endpoints.MapGroup("identity");
+        var group = routeBuilder.MapGroup("identity");
 
+        // todo: swagger docs for development
         group.MapPost("/login", Login).AllowAnonymous();
         group.MapPost("/register", RegisterUser).AllowAnonymous();
         group.MapPost("/refresh", Refresh).AllowAnonymous();
@@ -22,18 +23,41 @@ public static class IdentityController
         group.MapPost("/password", ChangePassword);
         group.MapPut("/profile", UpdateProfile);
 
-        return endpoints;
+        routeBuilder.MapGet("/", async (IIdentityApp identityApp) =>
+        {
+            var grpcResult = await identityApp.AuthenticateUser(
+                new AuthenticateUserRequest()
+                {
+                    Email = string.Empty,
+                    Password = string.Empty,
+                });
+            return Results.Ok(new LoginResponse
+            {
+                AccessToken = grpcResult.AccessToken,
+                RefreshToken = grpcResult.RefreshToken,
+                DueDate = grpcResult.DueDate,
+            });
+        }).AllowAnonymous();
+
+        return routeBuilder;
     }
 
-    private static async Task<IResult> Login(LoginRequest request)
+    private static async Task<IResult> Login(IIdentityApp identityApp, LoginRequest request)
     {
-        var result = new LoginResponse
+        // todo: use mapper? or its fine?
+        // todo: efficiently handle errors through gRPC
+        // todo: use Polly for grpc calls
+        var grpcResult = await identityApp.AuthenticateUser(new AuthenticateUserRequest
         {
-            AccessToken = RandomNumberGenerator.GetHexString(32),
-            RefreshToken = RandomNumberGenerator.GetHexString(32),
-            DueDate = DateTime.Now + TimeSpan.FromDays(7),
-        };
-        return Results.Ok(result);
+            Email = request.Email,
+            Password = request.Password
+        });
+        return Results.Ok(new LoginResponse
+        {
+            AccessToken = grpcResult.AccessToken,
+            RefreshToken = grpcResult.RefreshToken,
+            DueDate = grpcResult.DueDate,
+        });
     }
 
     private static async Task<IResult> RegisterUser(RegisterUserRequest request)

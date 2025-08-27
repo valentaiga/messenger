@@ -13,6 +13,8 @@
   identity.app:
     container_name: identity.app
     image: messenger.identity.app
+    ports:
+      - "5010:8080"
     build:
       context: .
       dockerfile: src/Backend/Messenger.Identity.App/Dockerfile

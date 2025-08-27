@@ -7,11 +7,13 @@
     <InvariantGlobalization>true</InvariantGlobalization>
     <PublishAot>true</PublishAot>
     <StripSymbols>true</StripSymbols>
-    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
+    <RuntimeIdentifiers>win-x64;linux-x64;osx-x64</RuntimeIdentifiers>
+    <StartupObject>Messenger.Web.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Messenger.Web.Api\Messenger.Web.Api.csproj" />
+    <ProjectReference Include="..\Messenger.Identity.App.Grpc.Client\Messenger.Identity.App.Grpc.Client.csproj" />
+    <ProjectReference Include="..\Messenger.Web.Api.WebSockets\Messenger.Web.Api.WebSockets.csproj" />
   </ItemGroup>
 
   <ItemGroup>

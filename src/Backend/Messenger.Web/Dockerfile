@@ -2,29 +2,28 @@
 USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
-EXPOSE 8081
 
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-# nativeAOT required
-RUN apt update && \
-    apt install -y gcc
-
+FROM mcr.microsoft.com/dotnet/nightly/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
-WORKDIR /src
-COPY ["src/Backend/Messenger.Web/Messenger.Web.csproj", "Messenger.Web/"]
-COPY ["src/Backend/Messenger.Web.Api/Messenger.Web.Api.csproj", "Messenger.Web.Api/"]
-COPY ["src/Backend/Messenger.Web.Api.Models/Messenger.Web.Api.Models.csproj", "Messenger.Web.Api.Models/"]
-COPY ["src/Backend/Messenger.Web.Api.WebSockets/Messenger.Web.Api.WebSockets.csproj", "Messenger.Web.Api.WebSockets/"]
-COPY ["src/Backend/Messenger.Common/Messenger.Common.csproj", "Messenger.Common/"]
+
+# Install NativeAOT build prerequisites
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends clang zlib1g-dev
+
+COPY ["src/Backend/Messenger.Web/", "Messenger.Web/"]
+COPY ["src/Backend/Messenger.Web.Api.Models/", "Messenger.Web.Api.Models/"]
+COPY ["src/Backend/Messenger.Web.Api.WebSockets/", "Messenger.Web.Api.WebSockets/"]
+COPY ["src/Backend/Messenger.Common/", "Messenger.Common/"]
+COPY ["src/Backend/Messenger.Common.Grpc.Client/", "Messenger.Common.Grpc.Client/"]
+COPY ["src/Backend/Messenger.Identity.App.Grpc.Contracts/", "Messenger.Identity.App.Grpc.Contracts/"]
+COPY ["src/Backend/Messenger.Identity.App.Grpc.Client/", "Messenger.Identity.App.Grpc.Client/"]
 RUN dotnet restore "Messenger.Web/Messenger.Web.csproj"
 
-WORKDIR /src/Messenger.Web
-COPY . .
-RUN dotnet build "./Messenger.Web.csproj" -c $BUILD_CONFIGURATION -o /app/build --no-restore
+RUN dotnet build "Messenger.Web/Messenger.Web.csproj" -c $BUILD_CONFIGURATION --no-restore
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Messenger.Web.csproj" -c $BUILD_CONFIGURATION /p:UseAppHost=false --self-contained true -o /app/publish --no-restore
+RUN dotnet publish "Messenger.Web/Messenger.Web.csproj" -c $BUILD_CONFIGURATION /p:UseAppHost=false --self-contained true -o /app/publish
 
 FROM base AS final
 WORKDIR /app

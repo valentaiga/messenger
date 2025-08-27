@@ -1,14 +1,21 @@
+using ProtoBuf.Grpc.Server;
+
 namespace Messenger.Identity.App;
 
-// todo vm: docker compose не работает, надо чинить
 public class Program
 {
     public static void Main(string[] args)
     {
-        var builder = Host.CreateApplicationBuilder(args);
-        builder.Services.AddHostedService<Worker>();
+        var builder = WebApplication.CreateSlimBuilder(args);
 
-        var host = builder.Build();
-        host.Run();
+        builder.Services.AddCodeFirstGrpc();
+
+        var app = builder.Build();
+
+        app.MapGrpcService<IdentityAppService>();
+
+        app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client.");
+
+        app.Run();
     }
 }
