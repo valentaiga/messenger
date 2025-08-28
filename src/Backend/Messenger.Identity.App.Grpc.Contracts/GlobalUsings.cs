@@ -1,2 +1,3 @@
-﻿global using ProtoBuf;
-global using ProtoBuf.Grpc.Configuration;
+﻿global using System.ServiceModel;
+global using ProtoBuf;
+global using ProtoBuf.WellKnownTypes;

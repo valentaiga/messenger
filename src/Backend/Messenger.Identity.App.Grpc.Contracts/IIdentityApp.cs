@@ -2,9 +2,9 @@
 
 namespace Messenger.Identity.App.Grpc.Contracts;
 
-[Service]
+[ServiceContract]
 public interface IIdentityApp
 {
-    [Operation]
+    [OperationContract]
     Task<AuthenticateUserResponse> AuthenticateUser(AuthenticateUserRequest request, CancellationToken ct = default);
 }

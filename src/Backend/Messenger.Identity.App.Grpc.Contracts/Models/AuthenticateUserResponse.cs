@@ -10,7 +10,7 @@ public class AuthenticateUserResponse
     public required string RefreshToken { get; set; }
 
     [ProtoMember(3)]
-    public required DateTime DueDate { get; set; }
+    public required Timestamp DueDate { get; set; }
 
     [ProtoMember(4)]
     public required long UserId { get; set; }

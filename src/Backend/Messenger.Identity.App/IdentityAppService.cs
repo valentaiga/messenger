@@ -1,7 +1,6 @@
 ﻿using System.Security.Cryptography;
 using Messenger.Identity.App.Grpc.Contracts;
 using Messenger.Identity.App.Grpc.Contracts.Models;
-using ProtoBuf.Grpc;
 
 namespace Messenger.Identity.App;
 
@@ -10,7 +9,7 @@ public class IdentityAppService : IIdentityApp
 {
     public async Task<AuthenticateUserResponse> AuthenticateUser(AuthenticateUserRequest request, CancellationToken ct = default)
     {
-        return new AuthenticateUserResponse
+        return new AuthenticateUserResponse // 1
         {
             AccessToken = RandomNumberGenerator.GetHexString(36),
             RefreshToken = RandomNumberGenerator.GetHexString(36),

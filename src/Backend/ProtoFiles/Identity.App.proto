@@ -1,6 +1,6 @@
 syntax = "proto3";
 package Messenger.Identity.App.Grpc.Contracts;
-import "protobuf-net/bcl.proto"; // schema for protobuf-net's handling of core .NET types
+import "google/protobuf/timestamp.proto";
 
 message AuthenticateUserRequest {
    string Email = 1;
@@ -9,7 +9,7 @@ message AuthenticateUserRequest {
 message AuthenticateUserResponse {
    string AccessToken = 1;
    string RefreshToken = 2;
-   .bcl.DateTime DueDate = 3;
+   .google.protobuf.Timestamp DuiTime = 3;
    int64 UserId = 4;
 }
 service IdentityApp {

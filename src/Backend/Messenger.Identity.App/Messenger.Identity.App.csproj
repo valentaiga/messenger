@@ -26,4 +26,8 @@
     <ProjectReference Include="..\Messenger.Identity.App.Grpc.Contracts\Messenger.Identity.App.Grpc.Contracts.csproj"/>
   </ItemGroup>
 
+  <Target Name="GenerateProtoFile" BeforeTargets="Build" Condition="'$(Configuration)'=='Debug'">
+      <Exec Command="dotnet run --project $(SolutionDir)\src\Backend\Messenger.Utils.ProtoFilesGen\Messenger.Utils.ProtoFilesGen.csproj --Identity.App" />
+  </Target>
+
 </Project>

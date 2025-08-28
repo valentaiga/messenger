@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path="compose.yaml" />
+    <File Path="src\Backend\ProtoFiles\Identity.App.proto" />
   </Folder>
   <Project Path="src\Backend\Messenger.Common.Grpc.Client\Messenger.Common.Grpc.Client.csproj" Type="Classic C#" />
   <Project Path="src\Backend\Messenger.Common\Messenger.Common.csproj" Type="Classic C#" />

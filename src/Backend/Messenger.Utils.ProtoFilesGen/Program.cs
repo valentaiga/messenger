@@ -3,7 +3,7 @@ using ProtoBuf.Grpc.Reflection;
 using ProtoBuf.Meta;
 
 // ===================== update only this part =====================
-
+Console.WriteLine("ProtoFilesGen args: [" + string.Join(",", args) + "]");
 var interfaces = new Dictionary<string, Type>
 {
     { "Identity.App", typeof(IIdentityApp) }
@@ -19,12 +19,17 @@ var generator = new SchemaGenerator
 };
 
 var saveFolder = Path.Combine(FindSolutionDirectory(), "src", "Backend", "ProtoFiles");
-foreach (var (protoFileName, type) in interfaces)
+foreach (var protoFileArg in args)
 {
+    var protoFileName = protoFileArg[2..];
+
+    if (!interfaces.TryGetValue(protoFileName, out var type))
+        throw new Exception("Project reference not found for proto file generation");
+
     var output = generator.GetSchema(type);
     var filePath = Path.Combine(saveFolder, $"{protoFileName}.proto");
     await File.WriteAllTextAsync(filePath, output);
-    Console.WriteLine($"Proto file: {protoFileName}.proto updated");
+    Console.WriteLine($"ProtoFilesGen: Proto file '{protoFileName}.proto' updated ({filePath})");
 }
 
 return;
