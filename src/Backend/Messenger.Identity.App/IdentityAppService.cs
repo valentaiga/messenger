@@ -8,7 +8,7 @@ namespace Messenger.Identity.App;
 // todo: add tests after business logic impl
 public class IdentityAppService : IIdentityApp
 {
-    public async Task<AuthenticateUserResponse> AuthenticateUser(AuthenticateUserRequest request, CallContext context = default)
+    public async Task<AuthenticateUserResponse> AuthenticateUser(AuthenticateUserRequest request, CancellationToken ct = default)
     {
         return new AuthenticateUserResponse
         {

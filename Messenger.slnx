@@ -7,6 +7,7 @@
   <Project Path="src\Backend\Messenger.Identity.App.Grpc.Client\Messenger.Identity.App.Grpc.Client.csproj" Type="Classic C#" />
   <Project Path="src\Backend\Messenger.Identity.App.Grpc.Contracts\Messenger.Identity.App.Grpc.Contracts.csproj" Type="Classic C#" />
   <Project Path="src\Backend\Messenger.Identity.App\Messenger.Identity.App.csproj" Type="Classic C#" />
+  <Project Path="src\Backend\Messenger.Utils.ProtoFilesGen\Messenger.Utils.ProtoFilesGen.csproj" Type="Classic C#" />
   <Project Path="src\Backend\Messenger.Web.Api.Models\Messenger.Web.Api.Models.csproj" Type="Classic C#" />
   <Project Path="src\Backend\Messenger.Web.Api.WebSockets\Messenger.Web.Api.WebSockets.csproj" Type="Classic C#" />
   <Project Path="src\Backend\Messenger.Web\Messenger.Web.csproj" Type="Classic C#" />
