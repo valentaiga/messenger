@@ -3,20 +3,23 @@
     container_name: web
     image: messenger.web
     ports:
-      - "5000:8080"
+      - "5000:5000"
     build:
       context: .
       dockerfile: src/Backend/Messenger.Web/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+      Kestrel__Endpoints__Localhost__Url: http://0.0.0.0:5000
+      Grpc__Identity.App__Endpoint: identity.app
 
   identity.app:
     container_name: identity.app
     image: messenger.identity.app
     ports:
-      - "5010:8080"
+      - "5010:5010"
     build:
       context: .
       dockerfile: src/Backend/Messenger.Identity.App/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+      Kestrel__Endpoints__Localhost__Url: http://0.0.0.0:5010

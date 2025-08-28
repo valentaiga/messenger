@@ -1,7 +1,7 @@
 ﻿namespace Messenger.Identity.App.Grpc.Contracts.Models;
 
 [ProtoContract]
-public class AuthenticateUserRequest
+public class GrpcAuthenticateUserRequest
 {
     [ProtoMember(1)]
     public required string Email { get; set; }

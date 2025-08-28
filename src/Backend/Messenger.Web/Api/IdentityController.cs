@@ -1,9 +1,7 @@
 ﻿using System.Security.Cryptography;
 using Messenger.Identity.App.Grpc.Contracts;
-using Messenger.Identity.App.Grpc.Contracts.Models;
 using Messenger.Web.Api.Models;
 using Messenger.Web.Api.Models.Identity;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Messenger.Web.Api;
 
@@ -23,31 +21,15 @@ public static class IdentityController
         group.MapPost("/password", ChangePassword);
         group.MapPut("/profile", UpdateProfile);
 
-        routeBuilder.MapGet("/", async (IIdentityApp identityApp) =>
-        {
-            var grpcResult = await identityApp.AuthenticateUser(
-                new AuthenticateUserRequest()
-                {
-                    Email = string.Empty,
-                    Password = string.Empty,
-                });
-            return Results.Ok(new LoginResponse
-            {
-                AccessToken = grpcResult.AccessToken,
-                RefreshToken = grpcResult.RefreshToken,
-                DueDate = grpcResult.DueDate,
-            });
-        }).AllowAnonymous();
-
         return routeBuilder;
     }
 
-    private static async Task<IResult> Login(IIdentityApp identityApp, LoginRequest request)
+    private static async Task<IResult> Login(IdentityApp.IdentityAppClient identityApp, LoginRequest request)
     {
         // todo: use mapper? or its fine?
         // todo: efficiently handle errors through gRPC
-        // todo: use Polly for grpc calls
-        var grpcResult = await identityApp.AuthenticateUser(new AuthenticateUserRequest
+        // todo: use Polly for grpc calls?
+        var grpcResult = await identityApp.AuthenticateUserAsync(new GrpcAuthenticateUserRequest
         {
             Email = request.Email,
             Password = request.Password
@@ -56,7 +38,7 @@ public static class IdentityController
         {
             AccessToken = grpcResult.AccessToken,
             RefreshToken = grpcResult.RefreshToken,
-            DueDate = grpcResult.DueDate,
+            DueDate = grpcResult.DueDate.ToDateTime(),
         });
     }
 

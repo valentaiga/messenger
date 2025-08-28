@@ -6,9 +6,9 @@ namespace Messenger.Identity.App.Grpc.Client;
 
 public static class ClientDiExtensions
 {
-    public static IServiceCollection AddIdentityGrpcClient(this IServiceCollection services, string endpoint)
+    public static IServiceCollection AddIdentityGrpcClient(this IServiceCollection services, string configSectionPath)
     {
-        GrpcClientDiExtensions.AddGrpcClient<IIdentityApp>(services, endpoint);
+        services.AddGrpcClient<IdentityApp.IdentityAppClient>(configSectionPath, channel => new IdentityApp.IdentityAppClient(channel));
         return services;
     }
 }

@@ -1,17 +1,17 @@
-﻿FROM debian:bookworm-slim AS base
+﻿FROM mcr.microsoft.com/dotnet/nightly/aspnet:9.0 AS base
 USER $APP_UID
 WORKDIR /app
-EXPOSE 8080
+EXPOSE 5010
 
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+FROM mcr.microsoft.com/dotnet/nightly/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 
 # Install NativeAOT build prerequisites
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends clang zlib1g-dev
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends clang zlib1g-dev
 
 COPY ["src/Backend/Messenger.Identity.App/", "Messenger.Identity.App/"]
-COPY ["src/Backend/Messenger.Identity.App.Grpc.Contracts/", "Messenger.Identity.App.Grpc.Contracts/"]
+COPY ["src/Backend/ProtoFiles/", "ProtoFiles/"]
 RUN dotnet restore "Messenger.Identity.App/Messenger.Identity.App.csproj"
 
 RUN dotnet build "Messenger.Identity.App/Messenger.Identity.App.csproj" -c $BUILD_CONFIGURATION --no-restore

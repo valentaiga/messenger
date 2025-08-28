@@ -2,16 +2,16 @@ syntax = "proto3";
 package Messenger.Identity.App.Grpc.Contracts;
 import "google/protobuf/timestamp.proto";
 
-message AuthenticateUserRequest {
+message GrpcAuthenticateUserRequest {
    string Email = 1;
    string Password = 2;
 }
-message AuthenticateUserResponse {
+message GrpcAuthenticateUserResponse {
    string AccessToken = 1;
    string RefreshToken = 2;
-   .google.protobuf.Timestamp DuiTime = 3;
+   .google.protobuf.Timestamp DueDate = 3;
    int64 UserId = 4;
 }
 service IdentityApp {
-   rpc AuthenticateUser (AuthenticateUserRequest) returns (AuthenticateUserResponse);
+   rpc AuthenticateUser (GrpcAuthenticateUserRequest) returns (GrpcAuthenticateUserResponse);
 }

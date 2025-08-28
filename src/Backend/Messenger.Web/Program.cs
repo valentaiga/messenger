@@ -16,27 +16,26 @@ public class Program
             options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
         });
 
-        // builder.Services.AddControllers();
         builder.Services.AddWebSocketHandler();
-        builder.Services.AddIdentityGrpcClient("http://127.0.0.1:5010");
+        builder.Services.AddIdentityGrpcClient("Grpc:Identity.App");
 
-        builder.Services.AddCors(options =>
-        {
-            options.AddPolicy("AllowFrontend", policy =>
-            {
-                policy
-                    .WithOrigins("http://localhost:5000")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
-            });
-        });
+        // builder.Services.AddCors(options =>
+        // {
+        //     options.AddPolicy("AllowFrontend", policy =>
+        //     {
+        //         policy
+        //             .WithOrigins("http://localhost:5000")
+        //             .AllowAnyHeader()
+        //             .AllowAnyMethod()
+        //             .AllowCredentials();
+        //     });
+        // });
 
         var app = builder.Build();
 
         app.UseWebSocketHandler();
 
-        app.UseCors("AllowFrontend");
+        // app.UseCors("AllowFrontend");
 
         app.AddIdentityEndpoints();
 

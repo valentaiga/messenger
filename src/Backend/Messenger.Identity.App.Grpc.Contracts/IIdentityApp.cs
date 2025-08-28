@@ -6,5 +6,5 @@ namespace Messenger.Identity.App.Grpc.Contracts;
 public interface IIdentityApp
 {
     [OperationContract]
-    Task<AuthenticateUserResponse> AuthenticateUser(AuthenticateUserRequest request, CancellationToken ct = default);
+    Task<GrpcAuthenticateUserResponse> AuthenticateUser(GrpcAuthenticateUserRequest request, CancellationToken ct = default);
 }

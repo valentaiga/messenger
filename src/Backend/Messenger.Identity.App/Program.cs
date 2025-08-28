@@ -1,5 +1,3 @@
-using ProtoBuf.Grpc.Server;
-
 namespace Messenger.Identity.App;
 
 public class Program
@@ -8,12 +6,11 @@ public class Program
     {
         var builder = WebApplication.CreateSlimBuilder(args);
 
-        builder.Services.AddCodeFirstGrpc();
+        builder.Services.AddGrpc();
 
         var app = builder.Build();
 
         app.MapGrpcService<IdentityAppService>();
-
         app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client.");
 
         app.Run();

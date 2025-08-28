@@ -7,8 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\ProtoFiles\Identity.App.proto" GrpcServices="Client" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Messenger.Common.Grpc.Client\Messenger.Common.Grpc.Client.csproj"/>
-    <ProjectReference Include="..\Messenger.Identity.App.Grpc.Contracts\Messenger.Identity.App.Grpc.Contracts.csproj"/>
   </ItemGroup>
 
 </Project>
